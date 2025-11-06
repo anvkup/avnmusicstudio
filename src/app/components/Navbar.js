@@ -1,8 +1,8 @@
 "use client"; 
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
+import Logo from './Logo'; 
 
 // --- Shadcn Imports ---
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+// --- (NEW) Import 'cn' utility from shadcn ---
+import { cn } from "@/lib/utils";
+
 // --- Icons ---
 import { Menu, Facebook, Instagram, Linkedin, ChevronDown } from 'lucide-react'; 
 
@@ -21,6 +24,7 @@ import { Menu, Facebook, Instagram, Linkedin, ChevronDown } from 'lucide-react';
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
+  { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -33,23 +37,26 @@ const serviceLinks = [
 ];
 
 
-function Navbar() {
+// --- 1. (NEW) Accept 'isSticky' prop, default to 'true' ---
+function Navbar({ isSticky = true }) { 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 w-full z-50 bg-white/80 dark:bg-brand-midnight/80 backdrop-blur-sm border-b border-gray-200 dark:border-brand-teal">
+    // --- 2. (NEW) Use 'cn' to conditionally apply 'sticky' ---
+    <nav 
+      className={cn(
+        "top-0 w-full relative z-50 bg-white/80 dark:bg-brand-midnight/80 backdrop-blur-sm border-b border-gray-200 dark:border-brand-teal",
+        isSticky && "sticky" // Only apply 'sticky' if isSticky is true
+      )}
+    >
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         
-        {/* --- LOGO --- */}
-        <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-          <Image src={"/image/a.png"}  width={30} height={30} alt='Logo'/>
-          <span className="self-center text-xl font-semibold whitespace-nowrap text-gray-900 dark:text-brand-white">AVN Music Studio</span>
-        </Link>
+        <Logo />
 
         {/* --- DESKTOP NAV WRAPPER --- */}
         <div className="hidden md:flex items-center space-x-4">
           
-          {/* Main Nav Links (Home, About, Contact) */}
+          {/* Main Nav Links */}
           {navLinks.map((link) => (
             <Button 
               key={link.href} 
@@ -63,22 +70,20 @@ function Navbar() {
             </Button>
           ))}
           
-          {/* --- 1. CUSTOM SERVICES DROPDOWN --- */}
-          {/* We use 'group' here to control the child list on hover */}
+          {/* --- CUSTOM SERVICES DROPDOWN --- */}
           <div className="relative group">
             <Button 
                 variant="link" 
                 asChild
                 className="opacity-70 hover:opacity-100 transition-opacity duration-200 text-gray-900 dark:text-brand-white text-sm font-medium"
             >
-                {/* This Link is CLICKABLE and Navigates to /services */}
                 <Link href="/services" className="flex items-center"> 
                     Services 
                     <ChevronDown className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
                 </Link>
             </Button>
             
-            {/* 2. THE DROPDOWN MENU (Hidden by default, shown on group-hover) */}
+            {/* THE DROPDOWN MENU */}
             <ul 
                 className="absolute left-0 mt-0.5 w-56 p-1 rounded-md shadow-lg 
                            bg-white dark:bg-brand-midnight dark:border-brand-teal border 
@@ -104,13 +109,13 @@ function Navbar() {
           {/* Social Icons (Desktop) */}
           <div className="flex space-x-2 border-l border-gray-200 dark:border-brand-teal pl-4">
             <Button variant="ghost" size="icon" asChild className="opacity-70 hover:opacity-100 transition-opacity duration-200">
-                <a href="https.www.facebook.com/profile.php?id=61566925568567" target="_blank" aria-label="Facebook"><Facebook className="h-4 w-4" /></a>
+                <a href="httpsm://www.facebook.com/profile.php?id=61566925568567" target="_blank" aria-label="Facebook"><Facebook className="h-4 w-4" /></a>
             </Button>
             <Button variant="ghost" size="icon" asChild className="opacity-70 hover:opacity-100 transition-opacity duration-200">
-                <a href="https.www.instagram.com/avn.music1/" target="_blank" aria-label="Instagram"><Instagram className="h-4 w-4" /></a>
+                <a href="httpsm://www.instagram.com/avn.music1/" target="_blank" aria-label="Instagram"><Instagram className="h-4 w-4" /></a>
             </Button>
             <Button variant="ghost" size="icon" asChild className="opacity-70 hover:opacity-100 transition-opacity duration-200">
-                <a href="https.www.linkedin.com/company/avn-productions1" target="_blank" aria-label="LinkedIn"><Linkedin className="h-4 w-4" /></a>
+                <a href="httpsm://www.linkedin.com/company/avn-productions1" target="_blank" aria-label="LinkedIn"><Linkedin className="h-4 w-4" /></a>
             </Button>
           </div>
           
@@ -130,14 +135,14 @@ function Navbar() {
               </Button>
             </SheetTrigger>
             
-            {/* The content of the side-drawer */}
             <SheetContent side="right" className="bg-white dark:bg-brand-deep-space border-l dark:border-brand-teal">
               <SheetHeader>
+                <Logo size="small" />
                 <SheetTitle className="text-gray-900 dark:text-brand-white">Navigation</SheetTitle>
               </SheetHeader>
               <div className="flex flex-col space-y-6 pt-8">
                 
-                {/* Mobile: Home, About, Contact */}
+                {/* Mobile: Home, About, Blog, Contact */}
                 {navLinks.map((link) => (
                   <Link
                     key={link.href}
@@ -149,7 +154,7 @@ function Navbar() {
                   </Link>
                 ))}
 
-                {/* Mobile: All individual service links are listed for easier mobile navigation */}
+                {/* Mobile: All individual service links */}
                 <h3 className="text-base font-semibold pt-4 text-gray-400 dark:text-gray-300">Services</h3>
                 {serviceLinks.map((link) => (
                     <Link
@@ -164,9 +169,9 @@ function Navbar() {
                 
                 {/* Mobile Social Icons */}
                 <div className="flex space-x-6 pt-4 border-t border-gray-200 dark:border-brand-teal">
-                    <a href="https.www.facebook.com/profile.php?id=61566925568567" target="_blank" aria-label="Facebook"><Facebook className="h-6 w-6 text-blue-500" /></a>
-                    <a href="https.www.instagram.com/avn.music1/" target="_blank" aria-label="Instagram"><Instagram className="h-6 w-6 text-blue-500" /></a>
-                    <a href="https.www.linkedin.com/company/avn-productions1" target="_blank" aria-label="LinkedIn"><Linkedin className="h-6 w-6 text-blue-500" /></a>
+                    <a href="httpsm://www.facebook.com/profile.php?id=61566925568567" target="_blank" aria-label="Facebook"><Facebook className="h-6 w-6 text-blue-500" /></a>
+                    <a href="httpsm://www.instagram.com/avn.music1/" target="_blank" aria-label="Instagram"><Instagram className="h-6 w-6 text-blue-500" /></a>
+                    <a href="httpsm://www.linkedin.com/company/avn-productions1" target="_blank" aria-label="LinkedIn"><Linkedin className="h-6 w-6 text-blue-500" /></a>
                 </div>
 
                 {/* Mobile "Call Us" Button */}

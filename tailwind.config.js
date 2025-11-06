@@ -1,11 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ["class"], 
+  darkMode: ["class"],
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-	],
+  ],
   theme: {
     container: {
       center: true,
@@ -21,7 +21,7 @@ module.exports = {
         'brand-teal': '#1D546F',
         // --- THIS IS THE FIX ---
         // Changed from '#F4F4F4' to pure white for more "pop"
-        'brand-white': '#FFFFFF', 
+        'brand-white': '#FFFFFF',
 
         // Shadcn UI colors (leave these)
         border: "hsl(var(--border))",
@@ -86,4 +86,5 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
+  plugins: [require("@tailwindcss/typography"),]
 }

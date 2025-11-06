@@ -2,9 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Facebook, Instagram, Linkedin, Smartphone } from 'lucide-react';
-
-// --- NEW IMPORT ---
-import Logo from './Logo'; // Assuming Logo.js is in the same directory
+import Logo from './Logo'; // Use the Logo component
 
 function Footer() {
     return (
@@ -14,9 +12,7 @@ function Footer() {
                     
                     {/* --- COLUMN 1: LOGO & CONTACT INFO --- */}
                     <div className="mb-6 md:mb-0">
-                        {/* 1. (FIX) Use the Logo component */}
                         <Logo /> 
-                        
                         <p className="mt-2 text-gray-600 dark:text-gray-100">AB/8, Adarsh Nagar, Dhurwa, Ranchi, Jharkhand 834004</p>
                         <a href="tel:090607 93927" className="text-gray-600 dark:text-gray-100 hover:underline">090607 93927</a>
                     </div>
@@ -36,6 +32,10 @@ function Footer() {
                                 </li>
                                 <li className="mb-4">
                                     <Link href="/services" className="hover:underline">Services</Link>
+                                </li>
+                                {/* --- ADDED BLOG LINK --- */}
+                                <li className="mb-4">
+                                    <Link href="/blog" className="hover:underline">Blog</Link>
                                 </li>
                                 <li className="mb-4">
                                     <Link href="/contact" className="hover:underline">Contact</Link>
@@ -60,7 +60,14 @@ function Footer() {
                         </div>
                         
                         {/* --- LEGAL COLUMN (COMMENTED OUT) --- */}
-                        {/* The structure is maintained by leaving this commented block here */}
+                        {/* <div>
+                            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-brand-white">Legal</h2>
+                            <ul className="text-gray-600 dark:text-gray-100 font-medium">
+                                <li className="mb-4"><Link href="/pnp" className="hover:underline">Privacy Policy</Link></li>
+                                <li><Link href="/tnc" className="hover:underline">Terms & Conditions</Link></li>
+                            </ul>
+                        </div>
+                        */}
                     </div>
                 </div>
                 
@@ -73,22 +80,22 @@ function Footer() {
                     {/* Social Icon Buttons (Shadcn style) */}
                     <div className="flex mt-4 sm:justify-center sm:mt-0 space-x-4">
                         <Button variant="outline" size="icon" asChild>
-                          <a href="https.www.facebook.com/profile.php?id=61566925568567" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                          <a href="https://www.facebook.com/profile.php?id=61566925568567" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                             <Facebook className="h-5 w-5" />
                           </a>
                         </Button>
                         <Button variant="outline" size="icon" asChild>
-                          <a href="https.www.instagram.com/avn.music1/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                          <a href="https://www.instagram.com/avn.music1/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                             <Instagram className="h-5 w-5" />
                           </a>
                         </Button>
                         <Button variant="outline" size="icon" asChild>
-                          <a href="https.www.linkedin.com/company/avn-productions1" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                          <a href="https://www.linkedin.com/company/avn-productions1" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                             <Linkedin className="h-5 w-5" />
                           </a>
                         </Button>
                         <Button variant="outline" size="icon" asChild>
-                          <a href="https.wa.link/vcj8tv" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                          <a href="https://wa.link/vcj8tv" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
                             <Smartphone className="h-5 w-5" />
                           </a>
                         </Button>
