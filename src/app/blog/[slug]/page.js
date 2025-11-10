@@ -1,107 +1,137 @@
 // src/app/blog/[slug]/page.js
 
 import React from 'react';
+// 1. (REVERT) Import file system modules
 import fs from 'fs';
 import path from 'path';
 import { glob } from 'glob';
+import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Image from 'next/image';
 import Link from 'next/link';
-import clientPromise from '@/lib/mongodb'; // Import MongoDB client
 
 // Shadcn Components
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react"; 
 import { Separator } from "@/components/ui/separator";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+
+// Components
 import PublisherDetails from "@/app/components/PublisherDetails";
 
+// --- Utility function to calculate read time ---
+function calculateReadTime(content) {
+  const wordsPerMinute = 200;
+  const wordCount = content.split(/\s+/).length;
+  const readTime = Math.ceil(wordCount / wordsPerMinute);
+  return `${readTime}`;
+}
 
-// --- Function to fetch the current post from MongoDB (PRIORITY) ---
+// --- 2. (REVERT) This function gets the single post from the FILE SYSTEM ---
 async function getPost(slug) {
-  try {
-    const client = await clientPromise; 
-    const db = client.db('avnmusicstudiodb'); 
-    const collection = db.collection('blogposts');
-    
-    // 1. ATTEMPT TO FETCH FROM MONGODB ATLAS
-    const post = await collection.findOne({ slug: slug });
-    
-    if (post) {
-      // 2. SUCCESS: Return the data from MongoDB
-      return {
-        frontmatter: {
-          title: post.title,
-          description: post.description,
-          date: post.date.toISOString(),
-          image: post.image,
-          author: post.author || 'AVN Music Studio',
-          authorTitle: post.authorTitle || 'Content Team',
-          authorImage: post.authorImage || '/blog/avn-logo-publisher.png',
-        },
-        content: post.content, // The raw MDX content string
-        readTime: Math.ceil(post.content.split(/\s+/).length / 200),
-      };
-    }
-    
-    // 3. FAILURE: If not found in DB, return null (or fall back to file system)
+  const postsPath = path.join(process.cwd(), 'content/blog');
+  const filePath = path.join(postsPath, `${slug}.mdx`);
+  
+  if (!fs.existsSync(filePath)) {
     return null;
-
-  } catch (e) {
-    console.error("MongoDB Single Post Fetch Failed:", e);
-    // If DB connection fails, we return null, letting the app handle the failure gracefully.
-    return null; 
   }
+
+  const markdownWithMeta = fs.readFileSync(filePath, 'utf-8');
+  const { data: frontmatter, content } = matter(markdownWithMeta);
+  const readTime = calculateReadTime(content);
+
+  return {
+    frontmatter: {
+      ...frontmatter,
+      author: frontmatter.author || 'AVN Music Studio',
+      authorTitle: frontmatter.authorTitle || 'Content Team',
+      authorImage: frontmatter.authorImage || '/blog/avn-logo-publisher.png',
+    },
+    content,
+    readTime,
+  };
 }
 
-// --- Function to fetch other posts for sidebar (Also prioritized from DB) ---
+// --- 3. (REVERT) This function gets other posts from the FILE SYSTEM ---
 async function getOtherPosts(currentSlug) {
-  try {
-    const client = await clientPromise; 
-    const db = client.db('avnmusicstudiodb');
-    const collection = db.collection('blogposts');
-    
-    const posts = await collection
-      .find({ slug: { $ne: currentSlug } })
-      .sort({ date: -1 })
-      .limit(5)
-      .toArray();
+  const postsPath = path.join(process.cwd(), 'content/blog');
+  const postFiles = await glob('*.mdx', { cwd: postsPath });
 
-    return posts.map(post => ({
-        slug: post.slug,
-        frontmatter: {
-            title: post.title,
-            description: post.description,
-            date: post.date.toISOString(),
-        }
-    }));
-  } catch (e) {
-    console.error("MongoDB Other Posts Fetch Failed:", e);
-    return [];
-  }
+  const posts = postFiles.map((filename) => {
+    const filePath = path.join(postsPath, filename);
+    const markdownWithMeta = fs.readFileSync(filePath, 'utf-8');
+    const { data: frontmatter } = matter(markdownWithMeta);
+    const slug = filename.replace('.mdx', '');
+    
+    return { slug, frontmatter };
+  });
+
+  return posts
+    .filter(post => post.slug !== currentSlug)
+    .sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date))
+    .slice(0, 5);
 }
 
-// --- Generate Metadata (Still requires a local file fallback if the DB is empty at build time) ---
-// This function needs to be a hybrid if you are using static exports.
-// For now, we keep it simple since Next.js can infer the title from the component if this fails.
+// --- Generate Metadata (Title) for SEO ---
+export async function generateMetadata({ params: { slug } }) {
+  const post = await getPost(slug); // Uses the file system getPost
+  if (!post) return { title: 'Post not found' };
+  
+  return {
+    title: `${post.frontmatter.title} | AVN Studio Blog`,
+    description: post.frontmatter.description,
+  };
+}
 
-// --- The New Page Component (No structural change needed here) ---
+// --- 4. (REVERT) Generate all blog post URLs from the FILE SYSTEM ---
+export async function generateStaticParams() {
+  const postsPath = path.join(process.cwd(), 'content/blog');
+  const postFiles = await glob('*.mdx', { cwd: postsPath });
+
+  return postFiles.map(filename => ({
+    slug: filename.replace('.mdx', ''),
+  }));
+}
+
+// --- The Page Component ---
 export default async function PostPage({ params: { slug } }) {
   const post = await getPost(slug);
   const otherPosts = await getOtherPosts(slug);
 
   if (!post) {
-    // If post is null, it means it wasn't found in the DB.
-    return <div className="text-center py-20">Post not found. Please ensure the post was successfully migrated to MongoDB Atlas.</div>;
+    return <div className="text-center py-20 text-red-500">Post not found. (Check /content/blog folder)</div>;
   }
+
   return (
     <div className="min-h-screen bg-white dark:bg-brand-deep-space py-12">
       <div className="max-w-screen-xl mx-auto px-6">
         
-        {/* --- Breadcrumbs (Use post.frontmatter.title) --- */}
-        {/* ... (Your breadcrumb component structure) ... */}
+        {/* --- Breadcrumbs --- */}
+        <div className="mb-8">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/blog">Blog</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{post.frontmatter.title}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
 
-        {/* --- Main Content Area (Layout structure remains the same) --- */}
+        {/* --- Main Content Area --- */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           
           {/* --- LEFT COLUMN: Title, Publisher, Article --- */}
@@ -128,9 +158,23 @@ export default async function PostPage({ params: { slug } }) {
             </article>
           </div>
 
-          {/* --- RIGHT COLUMN: Sidebar --- */}
+          {/* --- RIGHT COLUMN: Featured Image + Sidebar --- */}
           <aside className="lg:col-span-1 space-y-8 lg:sticky lg:top-28 h-fit">
             
+            {/* Featured Image */}
+            {post.frontmatter.image && (
+              <div className="relative w-full h-72 rounded-lg overflow-hidden mb-8">
+                <Image
+                  src={post.frontmatter.image}
+                  alt={post.frontmatter.title}
+                  layout="fill"
+                  objectFit="cover"
+                  priority
+                  className="rounded-lg"
+                />
+              </div>
+            )}
+
             {/* Search Bar Card */}
             <Card className="bg-white dark:bg-brand-midnight border-brand-teal">
               <CardHeader>
