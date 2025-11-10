@@ -1,9 +1,11 @@
 "use client" 
 
 import React from 'react'
-import EnquiryForm from '../components/EnquiryForm'
+// 1. Make sure EnquiryForm is imported from the correct path
+import EnquiryForm from '../components/EnquiryForm' 
 import { Facebook, Instagram, Linkedin } from 'lucide-react';
 
+// 2. Import all the shadcn components needed for this layout
 import {
   Card,
   CardContent,
@@ -17,26 +19,26 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from '@/components/ui/button'; 
-// --- FIX 2: IMPORT SEPARATOR ---
 import { Separator } from "@/components/ui/separator";
 
 export default function Contact() {
     return (
         // This page is transparent
         <div className="min-h-screen">
+            {/* 3. We use a wider 'max-w-screen-xl' container for a 2-column layout */}
             <div className="max-w-screen-xl mx-auto p-6 space-y-8"> 
                 
                 <h1 className="text-3xl font-bold text-center text-gray-900 dark:text-brand-white">Contact Us</h1>
-                {/* --- FIX 1: REMOVED DUPLICATE PROPS --- */}
                 <p className="text-center text-gray-600 dark:text-gray-100 max-w-2xl mx-auto">
                     We’d love to hear from you! Whether you have questions, feedback, or inquiries about our services, please feel free to reach out.
                 </p>
                 
-                {/* --- MAIN LAYOUT GRID: Form (2/3) + Info (1/3) --- */}
+                {/* --- 4. MAIN LAYOUT GRID: Form (2/3) + Info (1/3) --- */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     
                     {/* === COLUMN 1: ENQUIRY FORM & FAQ === */}
                     <div className="lg:col-span-2 space-y-8">
+                        {/* 5. The form is now wrapped in a Card */}
                         <Card className="bg-white dark:bg-brand-midnight border-brand-teal p-0">
                             <CardHeader>
                                 <CardTitle className="text-gray-900 dark:text-brand-white text-xl">Send Us a Message</CardTitle>
@@ -73,22 +75,27 @@ export default function Contact() {
                     {/* === COLUMN 2: SIDEBAR INFO === */}
                     <div className="lg:col-span-1 space-y-8">
                         
-                        {/* 3. Contact Info Card */}
+                        {/* Contact Info Card */}
                         <Card className="bg-white dark:bg-brand-midnight border-brand-teal text-center">
                             <CardHeader>
                                 <CardTitle className="text-gray-900 dark:text-brand-white">Contact Information</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-2 text-gray-600 dark:text-gray-100">
                                 <p><strong>Email:</strong> <a href="mailto:contact@avnmusic.site" className="text-blue-500">info@avnmusic.site</a></p>
-                                <p><strong>Phone:</strong> 90607 93927</p>
-                                <p><strong>Address:</strong><br />AVN Music Studio<br />AB/8, Adarsh Nagar, Dhurwa, Ranchi 834004</p>
+                                <p><strong>Phone:</strong> 93927</p>
+                                <p>
+                                    <strong>Address:</strong><br />
+                                    AVN Music Studio<br />
+                                    AB/8, Adarsh Nagar, Dhurwa,<br />
+                                    Ranchi, 834004<br />
+                                    India
+                                </p>
                             </CardContent>
                         </Card>
 
-                        {/* --- FIX 3: SEPARATOR USAGE IS NOW VALID --- */}
                         <Separator className="dark:bg-brand-teal" /> 
 
-                        {/* 4. Find Us (Map) Card */}
+                        {/* Find Us (Map) Card */}
                         <Card className="bg-white dark:bg-brand-midnight border-brand-teal text-center">
                             <CardHeader>
                                 <CardTitle className="text-gray-900 dark:text-brand-white">Find Us</CardTitle>
@@ -103,19 +110,18 @@ export default function Contact() {
                                 </iframe>
                             </CardContent>
                         </Card>
-
-                        {/* --- FIX 4: SEPARATOR USAGE IS NOW VALID --- */}
-                        <Separator className="dark:bg-brand-teal" /> 
                         
-                        {/* 5. Follow Us Card */}
+                        <Separator className="dark:bg-brand-teal" /> 
+
+                        {/* Follow Us Card */}
                         <Card className="bg-white dark:bg-brand-midnight border-brand-teal text-center">
                             <CardHeader>
                                 <CardTitle className="text-gray-900 dark:text-brand-white">Follow Us</CardTitle>
                             </CardHeader>
                             <CardContent className="flex justify-center space-x-4">
-                                <Button variant="outline" size="icon" asChild><a href="https.www.facebook.com/..." target="_blank" aria-label="Facebook"><Facebook className="h-5 w-5" /></a></Button>
-                                <Button variant="outline" size="icon" asChild><a href="https.www.instagram.com/..." target="_blank" aria-label="Instagram"><Instagram className="h-5 w-5" /></a></Button>
-                                <Button variant="outline" size="icon" asChild><a href="https.www.linkedin.com/..." target="_blank" aria-label="LinkedIn"><Linkedin className="h-5 w-5" /></a></Button>
+                                <Button variant="outline" size="icon" asChild><a href="https.www.facebook.com/profile.php?id=61566925568567" target="_blank" aria-label="Facebook"><Facebook className="h-5 w-5" /></a></Button>
+                                <Button variant="outline" size="icon" asChild><a href="https.www.instagram.com/avn.music1/" target="_blank" aria-label="Instagram"><Instagram className="h-5 w-5" /></a></Button>
+                                <Button variant="outline" size="icon" asChild><a href="https.www.linkedin.com/company/avn-productions1" target="_blank" aria-label="LinkedIn"><Linkedin className="h-5 w-5" /></a></Button>
                             </CardContent>
                         </Card>
                     </div>
