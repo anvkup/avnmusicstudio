@@ -1,14 +1,14 @@
-// src/app/layout.js
-
 "use client"; 
 
+// --- FONT IMPORTS ---
 import { Inter, Montserrat, Lato, Roboto_Condensed, Titillium_Web } from "next/font/google"; 
 import Script from "next/script";
 import "./globals.css";
+// --- FRAMEWORK IMPORTS ---
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation"; 
 
-// --- NEW IMPORT ---
+// --- VERCEL SPEED INSIGHTS ---
 import { SpeedInsights } from "@vercel/speed-insights/next"; 
 
 // --- Components ---
@@ -23,28 +23,24 @@ const inter = Inter({
   variable: '--font-inter',
   weight: ['400', '700'] 
 });
-
 const montserrat = Montserrat({
   subsets: ['latin'],
   variable: '--font-montserrat', 
   weight: '700',
   display: 'swap'
 });
-
 const lato = Lato({
   subsets: ['latin'],
   variable: '--font-lato', 
   weight: '400', 
   display: 'swap'
 });
-
 const robotoCondensed = Roboto_Condensed({
   subsets: ['latin'],
   variable: '--font-roboto-condensed', 
   weight: '700',
   display: 'swap'
 });
-
 const titilliumWeb = Titillium_Web({
   subsets: ['latin'],
   variable: '--font-titillium-web', 
@@ -57,6 +53,10 @@ const titilliumWeb = Titillium_Web({
 export default function RootLayout({ children }) {
   const pathname = usePathname(); 
 
+  // --- 1. (NEW) This logic makes the Navbar non-sticky on blog pages ---
+  const isSticky = !pathname.startsWith('/blog');
+
+  // Page transition variants
   const fadeVariants = {
     initial: { opacity: 0, y: 5 },
     animate: { opacity: 1, y: 0 },
@@ -68,7 +68,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${inter.variable} ${montserrat.variable} ${lato.variable} ${robotoCondensed.variable} ${titilliumWeb.variable} antialiased text-gray-900 dark:text-brand-white bg-white dark:bg-brand-deep-space relative`}
       >
-        {/* --- GOOGLE TAG MANAGER (GTM) NOSCRIPT SNIPPET (First in body) --- */}
+        {/* --- GTM NOSCRIPT --- */}
         <noscript>
           <iframe
             src="https://googletagmanager.com/ns.html?id=GTM-M7PGTCHS"
@@ -78,15 +78,17 @@ export default function RootLayout({ children }) {
           ></iframe>
         </noscript>
         
-        {/* Vercel Speed Insights Component (Placed near the top of the body) */}
+        {/* --- VERCEL SPEED INSIGHTS --- */}
         <SpeedInsights />
 
-        {/* Particle Animation (z-0: Renders in the absolute background) */}
+        {/* --- GLOBAL PARTICLE BACKGROUND --- */}
         <ParticleBackground />
 
-        {/* --- Main Content Wrapper (relative z-10 for stacking Navbar/Footer) --- */}
+        {/* --- MAIN CONTENT WRAPPER --- */}
         <div className="relative z-10">
-          <Navbar />
+          
+          {/* --- 2. (NEW) Pass the 'isSticky' prop to the Navbar --- */}
+          <Navbar isSticky={isSticky} />
           
           <AnimatePresence mode="wait" initial={false}>
             <motion.main

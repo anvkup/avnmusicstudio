@@ -6,42 +6,45 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-// --- NEW IMPORTS ---
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { CheckCircle, AlertTriangle } from 'lucide-react';
+// Import the custom phone component
 import { PhoneNumberInput } from './PhoneNumberInput';
 
-// --- Formspree Endpoint ---
-const FORMSPREE_URL = "https://formspree.io/f/mzzkjnro"; // Use your actual Formspree URL
+const CONTACT_API_ENDPOINT = "/api/contact"; // Internal API Endpoint for MongoDB Submission
 
 function EnquiryForm() {
   
-  // --- State for Phone Input ---
+  // --- State Management ---
   const [phoneNumber, setPhoneNumber] = useState("+91"); 
-  
-  // --- State for Form UI ---
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submissionError, setSubmissionError] = useState(false);
 
-  // --- 1. NEW: Form Data Handler ---
+  // 1. Form Submission Handler
   const handleSubmit = async (event) => {
     event.preventDefault();
     const form = event.target;
-    const data = new FormData(form);
     
+    // Gather all form data
+    const data = {};
+    new FormData(form).forEach((value, key) => {
+      data[key] = value;
+    });
+
     // Reset status
     setIsSubmitting(true);
     setIsSubmitted(false);
     setSubmissionError(false);
 
     try {
-        const response = await fetch(FORMSPREE_URL, {
+        // Send data to our secure internal API route
+        const response = await fetch(CONTACT_API_ENDPOINT, {
             method: 'POST',
-            body: data,
             headers: {
-                'Accept': 'application/json'
-            }
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
         });
 
         if (response.ok) {
@@ -52,12 +55,13 @@ function EnquiryForm() {
             setTimeout(() => setIsSubmitted(false), 5000);
             
         } else {
-            // Handle HTTP errors or Formspree validation errors
+            // Log the error from the server (e.g., MongoDB failure)
+            console.error("API Response Error:", response.status); 
             setSubmissionError(true);
             setTimeout(() => setSubmissionError(false), 5000);
         }
     } catch (error) {
-        console.error("Submission failed:", error);
+        console.error("Submission Failed (Network/Client Error):", error);
         setSubmissionError(true);
         setTimeout(() => setSubmissionError(false), 5000);
     } finally {
@@ -67,14 +71,13 @@ function EnquiryForm() {
 
 
   return (
-    // 2. We use the JavaScript handleSubmit function instead of the HTML action attribute
     <form onSubmit={handleSubmit} className="grid w-full gap-8">
       
       {/* --- SUCCESS ALERT --- */}
       {isSubmitted && (
           <Alert className="border-green-500 bg-green-900/10 text-green-500 dark:border-green-600">
               <CheckCircle className="h-4 w-4 text-green-500" />
-              <AlertTitle>Message Sent!</AlertTitle>
+              <AlertTitle>Success!</AlertTitle>
               <AlertDescription>
                   Your enquiry has been received successfully. We will contact you soon.
               </AlertDescription>
@@ -114,7 +117,7 @@ function EnquiryForm() {
         </div>
       </div>
 
-      {/* --- Phone Number Field --- */}
+      {/* --- Phone Number Field (Custom Component) --- */}
       <div className="grid w-full items-center gap-1.5">
         <Label htmlFor="phone-number" className="text-gray-900 dark:text-brand-white">Phone Number *</Label>
         
@@ -126,7 +129,8 @@ function EnquiryForm() {
         <p className="text-sm text-gray-500 dark:text-gray-300">Please enter a valid phone number.</p>
       </div>
 
-      {/* --- Hidden Input for Formspree --- */}
+      {/* --- Hidden Input for Formspree/MongoDB --- */}
+      {/* This ensures the full, validated number is sent */}
       <input type="hidden" name="phone" value={phoneNumber} />
 
       {/* --- Enquiry Regarding --- */}
