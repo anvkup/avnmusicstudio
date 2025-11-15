@@ -14,7 +14,7 @@ function Footer() {
                     <div className="mb-6 md:mb-0">
                         <Logo /> 
                         <p className="mt-2 text-gray-600 dark:text-gray-100">AB/8, Adarsh Nagar, Dhurwa, Ranchi, Jharkhand 834004</p>
-                        <a href="tel:090607 93927" className="text-gray-600 dark:text-gray-100 hover:underline">090607 93927</a>
+                        <a href="tel:+91 90607 93927" className="text-gray-600 dark:text-gray-100 hover:underline">090607 93927</a>
                     </div>
 
                     {/* --- COLUMN 2/3: LINKS --- */}
