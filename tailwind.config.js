@@ -63,10 +63,8 @@ module.exports = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      // 1. (FIX) Clean up the fontFamily
       fontFamily: {
-        sans: ["var(--font-inter)"], // Only Inter is needed
-        mono: ["var(--font-geist-mono)"], // Kept this just in case
+        sans: ["var(--font-inter)"],
       },
       keyframes: {
         "accordion-down": {

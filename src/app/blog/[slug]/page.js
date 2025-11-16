@@ -171,6 +171,8 @@ export default async function PostPage({ params: { slug } }) {
                   objectFit="cover"
                   priority
                   className="rounded-lg"
+                  quality={75}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
               </div>
             )}

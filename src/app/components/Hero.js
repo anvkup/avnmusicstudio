@@ -6,6 +6,17 @@ function Hero() {
 
     return (
         <section className="relative w-full min-h-[70vh] flex items-center justify-center overflow-hidden bg-white">
+            {/* Background image with WebP support */}
+            <picture className="absolute inset-0 w-full h-full">
+              <source srcSet="/image/studiobg.webp" type="image/webp" />
+              <img 
+                src="/image/ads.jpg" 
+                alt="Studio background" 
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </picture>
+            
             {/* Dark overlay for better text contrast */}
             <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/60 to-white/80 z-[5]" />
             

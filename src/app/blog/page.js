@@ -95,13 +95,15 @@ export default async function BlogPage() {
                   {/* --- Cover Image --- */}
                   {post.frontmatter.image && (
                     <div className="relative w-full h-48">
-                      {/* --- 2. (FIX) Using modern 'fill' prop and 'style' for object-fit --- */}
                       <Image
                         src={post.frontmatter.image}
                         alt={post.frontmatter.title}
                         fill
                         style={{ objectFit: 'cover' }}
                         className="transition-transform duration-300 ease-in-out hover:scale-105"
+                        loading="lazy"
+                        quality={75}
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw"
                       />
                     </div>
                   )}

@@ -51,7 +51,7 @@ function CardSection() {
                 <div className="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8 md:space-y-0">
                     
                     {/* --- 4. Mapping over your new service cards --- */}
-                    {serviceCards.map((service) => (
+                    {serviceCards.map((service, index) => (
                         <Card 
                             key={service.title} 
                             className="bg-gray-50 dark:bg-gray-50 border border-gray-200 flex flex-col justify-start overflow-hidden 
@@ -64,6 +64,9 @@ function CardSection() {
                                 width={400}
                                 height={300}
                                 className="w-full h-48 object-cover"
+                                loading="lazy"
+                                quality={75}
+                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                             />
                             <CardHeader>
                                 <CardTitle className="text-gray-900 dark:text-gray-900">{service.title}</CardTitle>

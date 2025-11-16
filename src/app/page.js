@@ -1,9 +1,19 @@
 // src/app/page.js
 
+import dynamic from 'next/dynamic';
 import Hero from "./components/Hero";
-import CardSection from "./components/CardSection";
-import ReviewSection from "./components/ReviewSection"; // Added Review Section
 import Script from 'next/script';
+
+// Lazy load below-fold components
+const ReviewSection = dynamic(() => import("./components/ReviewSection"), {
+  ssr: true,
+  loading: () => <div className="h-96 bg-white animate-pulse" />
+});
+
+const CardSection = dynamic(() => import("./components/CardSection"), {
+  ssr: true,
+  loading: () => <div className="h-96 bg-white animate-pulse" />
+});
 
 // --- IMPORTANT: Ensure this file exists in src/app/schema.js ---
 import { localBusinessSchema } from './schema'; 
@@ -26,13 +36,13 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
 
-      {/* --- 2. HERO SECTION (Animated Title) --- */}
+      {/* --- 2. HERO SECTION (Renders immediately) --- */}
       <Hero />
       
-      {/* --- 3. REVIEWS/TESTIMONIALS --- */}
+      {/* --- 3. REVIEWS/TESTIMONIALS (Lazy loaded) --- */}
       <ReviewSection /> 
       
-      {/* --- 4. SERVICE OVERVIEW CARDS --- */}
+      {/* --- 4. SERVICE OVERVIEW CARDS (Lazy loaded) --- */}
       <CardSection />
       
       {/* You can add more sections here, like a small CTA banner or a list of partners. */}

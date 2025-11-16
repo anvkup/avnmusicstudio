@@ -14,7 +14,9 @@ import PageTransitionWrapper from "./components/PageTransitionWrapper";
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
-  weight: ['400', '700'] 
+  weight: ['400', '700'],
+  display: 'swap',
+  preload: true
 });
 
 export const metadata = defaultMetadata;
@@ -29,7 +31,7 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-      <body className="bg-white text-gray-900">
+      <body className={`${inter.variable} bg-white text-gray-900`}>
         
         <SpeedInsights />
 
