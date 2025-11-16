@@ -72,10 +72,10 @@ export default async function BlogPage() {
         
         {/* Header Section */}
         <header className="text-center mb-16">
-          <h1 className="text-4xl font-extrabold text-gray-900 dark:text-brand-white mb-4">
+          <h1 className="text-4xl font-extrabold text-gray-900 dark:text-gray-900 mb-4">
             The AVN Studio Blog
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-200 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-600 max-w-2xl mx-auto">
             Recording insights, production tips, and news from our Ranchi studio.
           </p>
         </header>
@@ -90,7 +90,7 @@ export default async function BlogPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {posts.map((post) => (
                 // --- 1. (FIX) The Card is the ONLY flex container ---
-                <Card key={post.slug} className="bg-white dark:bg-brand-midnight border-brand-teal flex flex-col overflow-hidden">
+                <Card key={post.slug} className="bg-gray-50 dark:bg-gray-50 border-gray-200 flex flex-col overflow-hidden">
                   
                   {/* --- Cover Image --- */}
                   {post.frontmatter.image && (
@@ -109,18 +109,18 @@ export default async function BlogPage() {
                   {/* --- 3. (FIX) Removed the extra wrapper div --- */}
                   {/* These components are now direct children of the 'flex-col' Card */}
                   <CardHeader>
-                    <CardTitle className="text-gray-900 dark:text-brand-white text-2xl">
+                    <CardTitle className="text-gray-900 dark:text-gray-900 text-2xl">
                       {post.frontmatter.title}
                     </CardTitle>
-                    <CardDescription className="text-gray-500 dark:text-gray-400 pt-2">
+                    <CardDescription className="text-gray-500 dark:text-gray-500 pt-2">
                       {formatDate(post.frontmatter.date)}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="flex-grow"> {/* 'flex-grow' pushes the footer down */}
-                    <p className="text-gray-600 dark:text-gray-100">{post.frontmatter.description}</p>
+                    <p className="text-gray-600 dark:text-gray-600">{post.frontmatter.description}</p>
                   </CardContent>
                   <CardFooter>
-                    <Button asChild className="bg-blue-600 hover:bg-blue-700 text-brand-white">
+                    <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white font-semibold">
                       <Link href={`/blog/${post.slug}`}>Read More</Link>
                     </Button>
                   </CardFooter>

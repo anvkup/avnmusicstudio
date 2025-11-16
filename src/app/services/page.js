@@ -41,15 +41,15 @@ const serviceDirectory = [
 
 export default function Services() {
     return (
-        <div className="min-h-screen bg-white dark:bg-brand-deep-space py-12">
+        <div className="min-h-screen bg-white dark:bg-white py-12">
             <div className="max-w-screen-xl mx-auto px-6 space-y-12">
                 
                 {/* --- HEADER: Service Overview --- */}
                 <header className="text-center mb-10">
-                    <h1 className="text-5xl font-extrabold text-gray-900 dark:text-brand-white mb-4">
+                    <h1 className="text-5xl font-extrabold text-gray-900 dark:text-gray-900 mb-4">
                         Explore Our Full Range of Services
                     </h1>
-                    <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                    <p className="text-xl text-gray-600 dark:text-gray-600 max-w-3xl mx-auto">
                         We offer specialized packages for every stage of audio production—from tracking vocals to final commercial mastering.
                     </p>
                 </header>
@@ -62,7 +62,7 @@ export default function Services() {
                         <Link key={index} href={service.href}>
                             <Card 
                                 // Make the card look clickable with cursor-pointer and shadow
-                                className="bg-white dark:bg-brand-midnight border-brand-teal h-full flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:dark:border-blue-500 cursor-pointer"
+                                className="bg-gray-50 dark:bg-gray-50 border-gray-200 h-full flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:border-blue-500 cursor-pointer"
                             >
                                 <div className="relative overflow-hidden h-48">
                                     <Image
@@ -75,18 +75,18 @@ export default function Services() {
                                 </div>
 
                                 <CardHeader>
-                                    <CardTitle className="text-xl font-bold text-gray-900 dark:text-brand-white">
+                                    <CardTitle className="text-xl font-bold text-gray-900 dark:text-gray-900">
                                         {service.title}
                                     </CardTitle>
                                 </CardHeader>
 
-                                <CardContent className="text-gray-600 dark:text-gray-100 text-sm">
+                                <CardContent className="text-gray-600 dark:text-gray-600 text-sm">
                                     <p>{service.description}</p>
                                 </CardContent>
 
                                 {/* 2. FIX: Use Button just for visual styling, removing the redundant <a> wrapper */}
                                 <CardFooter>
-                                    <Button asChild className="w-full bg-blue-600 hover:bg-blue-700 text-brand-white">
+                                    <Button asChild className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold">
                                         <span>
                                             Learn More <MoveRight className="w-4 h-4 ml-2 inline-block" />
                                         </span>

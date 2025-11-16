@@ -5,15 +5,11 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-// DELETED: import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; (no longer used)
 import { MoveRight, Star, Mic, Heart } from 'lucide-react'; 
 import { Separator } from "@/components/ui/separator";
 
-// DELETED: import { metadata as defaultMetadata } from "@/app/layout";
-// DELETED: export const metadata = { ... };
-
 export default function About() {
-    // State and handler for the former tabs component
+    // State for the tabs component
     const [activeTab, setActiveTab] = React.useState("services");
     
     const handleTabChange = (newValue) => {

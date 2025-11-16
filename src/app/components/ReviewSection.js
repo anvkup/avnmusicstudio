@@ -42,15 +42,15 @@ export default function ReviewSection() {
     const totalReviews = staticReviews.length;
 
     return (
-        <section className="py-16 bg-white dark:bg-brand-deep-space">
+        <section className="py-16 bg-white dark:bg-white">
             <div className="max-w-4xl mx-auto px-6">
                 
                 {/* --- HEADER --- */}
                 <header className="text-center mb-12">
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-brand-white mb-2">
+                    <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-900 mb-2">
                         Client Testimonials
                     </h2>
-                    <p className="text-lg text-gray-600 dark:text-gray-300">
+                    <p className="text-lg text-gray-600 dark:text-gray-600">
                         Rated {totalRating.toFixed(1)} out of 5 stars based on {totalReviews} Reviews and 26 Ratings.
                     </p>
                 </header>
@@ -60,19 +60,19 @@ export default function ReviewSection() {
                     <CarouselContent>
                         {staticReviews.map((review, index) => (
                             <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                                <Card className="bg-white dark:bg-brand-midnight border-brand-teal h-full flex flex-col justify-between">
+                                <Card className="bg-gray-50 dark:bg-gray-50 border border-gray-200 h-full flex flex-col justify-between">
                                     <CardHeader>
                                         <div className="flex items-center justify-between">
                                             <RatingStars rating={review.rating} />
-                                            <MessageSquare className="h-4 w-4 text-brand-teal" />
+                                            <MessageSquare className="h-4 w-4 text-blue-600" />
                                         </div>
                                     </CardHeader>
-                                    <CardContent className="text-gray-600 dark:text-gray-100 italic text-sm min-h-[80px]">
+                                    <CardContent className="text-gray-700 dark:text-gray-700 italic text-sm min-h-[80px]">
                                         <p>&ldquo;{review.text}&rdquo;</p>
                                     </CardContent>
                                     <CardFooter className="flex justify-between items-center text-xs text-gray-500">
                                         <div className="flex items-center">
-                                            <span className="font-semibold text-gray-900 dark:text-brand-white">{review.author}</span>
+                                            <span className="font-semibold text-gray-900 dark:text-gray-900">{review.author}</span>
                                         </div>
                                         <span>{review.time}</span>
                                     </CardFooter>
@@ -85,17 +85,17 @@ export default function ReviewSection() {
                     {/* 2. They now have class 'static' so they flow below the content instead of floating over it. */}
                     <div className="flex justify-center space-x-4 pt-6">
                         <CarouselPrevious 
-                            className="relative static dark:border-brand-teal dark:text-brand-white" 
+                            className="relative static border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white" 
                         />
                         <CarouselNext 
-                            className="relative static dark:border-brand-teal dark:text-brand-white" 
+                            className="relative static border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white" 
                         />
                     </div>
                 </Carousel>
                 
                 {/* 3. The View All link is placed correctly below the carousel */}
                 <div className="text-center mt-8">
-                    <Button asChild variant="link" className="text-blue-500 hover:underline">
+                    <Button asChild variant="link" className="text-blue-600 hover:underline">
                         <a href="https://search.google.com/local/writereview?placeid=ChIJ-_K5RmEh9TkRmsOnefwPe5I" target="_blank" rel="noopener noreferrer">
                             View All Reviews on Google
                         </a>

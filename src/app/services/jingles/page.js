@@ -77,7 +77,7 @@ export default function JinglesPage() {
                     </p>
                     <a 
                         href="/contact"
-                        className="inline-flex justify-center items-center py-3 px-6 text-lg font-semibold rounded-full bg-blue-600 hover:bg-blue-700 text-brand-white transition-colors"
+                        className="inline-flex justify-center items-center py-3 px-6 text-lg font-semibold rounded-full bg-blue-600 hover:bg-blue-700 text-white transition-colors"
                     >
                         Start Audio Project
                     </a>

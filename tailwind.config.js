@@ -16,10 +16,14 @@ module.exports = {
     },
     extend: {
       colors: {
-        'brand-deep-space': '#0C2B4E',
-        'brand-midnight': '#1A3D64',
-        'brand-teal': '#1D546F',
-        'brand-white': '#FFFFFF', 
+        // Light Theme Colors (White background)
+        'brand-deep-space': '#FFFFFF',       // White background
+        'brand-midnight': '#F9FAFB',         // Light gray background for cards
+        'brand-teal': '#2563EB',             // Blue accent color
+        'brand-white': '#1F2937',            // Dark gray for headings
+        'brand-light-gray': '#6B7280',       // Medium gray for secondary text
+        'brand-medium-gray': '#9CA3AF',      // Light gray for tertiary text
+        
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

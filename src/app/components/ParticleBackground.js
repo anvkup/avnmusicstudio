@@ -40,13 +40,13 @@ function ParticleBackground() {
         },
         particles: {
             color: {
-                value: '#F4F4F4', 
+                value: '#4B5563', // Dark gray for visibility on white background
             },
             links: {
-                color: '#F4F4F4',
+                color: '#4B5563', // Dark gray links
                 distance: 150,
                 enable: true,
-                opacity: 0.1, // Subtle link opacity
+                opacity: 0.15, // Subtle link opacity
                 width: 1,
             },
             move: {
@@ -65,7 +65,7 @@ function ParticleBackground() {
                 value: 150, 
             },
             opacity: {
-                value: 0.2, // Subtle particle opacity
+                value: 0.3, // Increased opacity for visibility
             },
             shape: {
                 type: 'triangle',

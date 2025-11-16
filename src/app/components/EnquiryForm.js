@@ -176,7 +176,7 @@ function EnquiryForm() {
       </div>
 
       {/* --- Submit Button --- */}
-      <Button type="submit" size="lg" className="w-full bg-blue-600 hover:bg-blue-700 text-brand-white" disabled={isSubmitting}>
+      <Button type="submit" size="lg" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold" disabled={isSubmitting}>
         {isSubmitting ? 'Submitting...' : 'Submit'}
       </Button>
     </form>

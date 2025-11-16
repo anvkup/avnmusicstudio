@@ -7,12 +7,11 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-// --- 1. New data for your 4 service cards ---
 const serviceCards = [
   {
     title: 'Music Production',
     description: 'From the initial idea to a fully produced track. We handle arrangement, instrumentation, and sound design to bring your musical vision to life.',
-    image: '/image/music-production.jpg', // Assumes this image is in your /public/image folder
+    image: '/image/music-production.jpg',
   },
   {
     title: 'Mixing & Mastering',
@@ -35,15 +34,15 @@ const serviceCards = [
 function CardSection() { 
     return (
         // This section "floats" on the particle background
-        <section className="bg-white dark:bg-brand-deep-space py-16">
+        <section className="bg-white dark:bg-white py-16">
             <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
                 
                 {/* --- 2. New Heading for this section --- */}
                 <div className="max-w-screen-md mb-8 lg:mb-16 text-center mx-auto">
-                    <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-brand-white">
+                    <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-gray-900">
                         What We Do
                     </h2>
-                    <p className="text-gray-500 sm:text-xl dark:text-gray-100">
+                    <p className="text-gray-600 sm:text-xl dark:text-gray-600">
                         We offer a complete suite of audio services to bring your projects from concept to completion.
                     </p>
                 </div>
@@ -55,9 +54,9 @@ function CardSection() {
                     {serviceCards.map((service) => (
                         <Card 
                             key={service.title} 
-                            className="bg-white dark:bg-brand-midnight border-brand-teal flex flex-col justify-start overflow-hidden 
+                            className="bg-gray-50 dark:bg-gray-50 border border-gray-200 flex flex-col justify-start overflow-hidden 
                                        transition-all duration-300 ease-in-out
-                                       hover:shadow-2xl hover:dark:border-blue-500/50 hover:-translate-y-1"
+                                       hover:shadow-2xl hover:border-blue-600/60 hover:-translate-y-1"
                         >
                             <Image
                                 src={service.image}
@@ -67,10 +66,10 @@ function CardSection() {
                                 className="w-full h-48 object-cover"
                             />
                             <CardHeader>
-                                <CardTitle className="text-gray-900 dark:text-brand-white">{service.title}</CardTitle>
+                                <CardTitle className="text-gray-900 dark:text-gray-900">{service.title}</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-gray-500 dark:text-gray-100">{service.description}</p>
+                                <p className="text-gray-600 dark:text-gray-600">{service.description}</p>
                             </CardContent>
                         </Card>
                     ))}

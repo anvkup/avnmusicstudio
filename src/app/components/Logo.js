@@ -20,8 +20,8 @@ export default function Logo({ size = 'default' }) {
                 height={imageSize} 
                 alt='AVN Music Studio Logo' 
             />
-            {/* Dynamic text size and color */}
-            <span className={`self-center font-semibold whitespace-nowrap text-gray-900 dark:text-brand-white ${textSize}`}>
+            {/* Dynamic text size and color - white for navbar/footer */}
+            <span className={`self-center font-semibold whitespace-nowrap text-white dark:text-white ${textSize}`}>
                 AVN Music Studio
             </span>
         </Link>
