@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Logo from './Logo'; 
+// 1. (NEW) Import usePathname here
+import { usePathname } from 'next/navigation';
 
 // --- Shadcn Imports ---
 import { Button } from "@/components/ui/button";
@@ -13,8 +15,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-
-// --- (NEW) Import 'cn' utility from shadcn ---
 import { cn } from "@/lib/utils";
 
 // --- Icons ---
@@ -27,26 +27,23 @@ const navLinks = [
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
 ];
-
-// --- Service Links (For Dropdown) ---
-const serviceLinks = [
-    { href: "/services/production", label: "Music Production" },
-    { href: "/services/mixing", label: "Mixing & Mastering" },
-    { href: "/services/recording", label: "Recording & Dubbing" },
-    { href: "/services/jingles", label: "Commercial Audio" },
-];
+// ... (serviceLinks array) ...
 
 
-// --- 1. (NEW) Accept 'isSticky' prop, default to 'true' ---
-function Navbar({ isSticky = true }) { 
+// 2. (FIX) Remove 'isSticky' from props
+function Navbar() { 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // 3. (FIX) Get the pathname *inside* the Navbar component
+  const pathname = usePathname();
+  const isSticky = !pathname.startsWith('/blog');
+
   return (
-    // --- 2. (NEW) Use 'cn' to conditionally apply 'sticky' ---
+    // 4. (FIX) The 'cn' logic now works perfectly
     <nav 
       className={cn(
         "top-0 w-full relative z-50 bg-white/80 dark:bg-brand-midnight/80 backdrop-blur-sm border-b border-gray-200 dark:border-brand-teal",
-        isSticky && "sticky" // Only apply 'sticky' if isSticky is true
+        isSticky && "sticky" 
       )}
     >
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -91,16 +88,7 @@ function Navbar({ isSticky = true }) {
                            group-hover:scale-y-100 group-hover:opacity-100 
                            origin-top z-40"
             >
-                {serviceLinks.map((service) => (
-                    <li key={service.href}>
-                        <Link 
-                            href={service.href} 
-                            className="block px-3 py-2 text-sm text-gray-900 dark:text-brand-white hover:bg-gray-100 dark:hover:bg-brand-teal/50 rounded-sm transition-colors duration-150"
-                        >
-                            {service.label}
-                        </Link>
-                    </li>
-                ))}
+              {/* ... (serviceLinks map) ... */}
             </ul>
           </div>
           {/* --- END CUSTOM DROPDOWN --- */}
@@ -108,15 +96,7 @@ function Navbar({ isSticky = true }) {
 
           {/* Social Icons (Desktop) */}
           <div className="flex space-x-2 border-l border-gray-200 dark:border-brand-teal pl-4">
-            <Button variant="ghost" size="icon" asChild className="opacity-70 hover:opacity-100 transition-opacity duration-200">
-                <a href="httpsm://www.facebook.com/profile.php?id=61566925568567" target="_blank" aria-label="Facebook"><Facebook className="h-4 w-4" /></a>
-            </Button>
-            <Button variant="ghost" size="icon" asChild className="opacity-70 hover:opacity-100 transition-opacity duration-200">
-                <a href="httpsm://www.instagram.com/avn.music1/" target="_blank" aria-label="Instagram"><Instagram className="h-4 w-4" /></a>
-            </Button>
-            <Button variant="ghost" size="icon" asChild className="opacity-70 hover:opacity-100 transition-opacity duration-200">
-                <a href="httpsm://www.linkedin.com/company/avn-productions1" target="_blank" aria-label="LinkedIn"><Linkedin className="h-4 w-4" /></a>
-            </Button>
+            {/* ... (social icons) ... */}
           </div>
           
           {/* Desktop "Call Us" Button */}
@@ -127,60 +107,7 @@ function Navbar({ isSticky = true }) {
 
         {/* --- MOBILE NAV (Side-Drawer) --- */}
         <div className="flex md:hidden">
-          <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-            <SheetTrigger asChild>
-              <Button variant="outline" size="icon">
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Open main menu</span>
-              </Button>
-            </SheetTrigger>
-            
-            <SheetContent side="right" className="bg-white dark:bg-brand-deep-space border-l dark:border-brand-teal">
-              <SheetHeader>
-                <Logo size="small" />
-                <SheetTitle className="text-gray-900 dark:text-brand-white">Navigation</SheetTitle>
-              </SheetHeader>
-              <div className="flex flex-col space-y-6 pt-8">
-                
-                {/* Mobile: Home, About, Blog, Contact */}
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="text-xl font-medium opacity-70 hover:opacity-100 transition-opacity duration-200 text-gray-900 dark:text-brand-white"
-                    onClick={() => setIsMobileMenuOpen(false)} 
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-
-                {/* Mobile: All individual service links */}
-                <h3 className="text-base font-semibold pt-4 text-gray-400 dark:text-gray-300">Services</h3>
-                {serviceLinks.map((link) => (
-                    <Link
-                        key={link.href}
-                        href={link.href}
-                        className="text-lg pl-4 opacity-70 hover:opacity-100 transition-opacity duration-200 text-gray-900 dark:text-brand-white"
-                        onClick={() => setIsMobileMenuOpen(false)} 
-                    >
-                        {link.label}
-                    </Link>
-                ))}
-                
-                {/* Mobile Social Icons */}
-                <div className="flex space-x-6 pt-4 border-t border-gray-200 dark:border-brand-teal">
-                    <a href="httpsm://www.facebook.com/profile.php?id=61566925568567" target="_blank" aria-label="Facebook"><Facebook className="h-6 w-6 text-blue-500" /></a>
-                    <a href="httpsm://www.instagram.com/avn.music1/" target="_blank" aria-label="Instagram"><Instagram className="h-6 w-6 text-blue-500" /></a>
-                    <a href="httpsm://www.linkedin.com/company/avn-productions1" target="_blank" aria-label="LinkedIn"><Linkedin className="h-6 w-6 text-blue-500" /></a>
-                </div>
-
-                {/* Mobile "Call Us" Button */}
-                <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 text-brand-white mt-6">
-                  <a href="tel:090607 93927">Call Us</a>
-                </Button>
-              </div>
-            </SheetContent>
-          </Sheet>
+          {/* ... (Sheet component) ... */}
         </div>
 
       </div>
