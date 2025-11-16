@@ -10,7 +10,7 @@ import { localBusinessSchema } from './schema';
 
 export const metadata = {
     title: "AVN Music Studio | Best Recording Studio in Ranchi",
-    description: "",
+    description: "AVN Music Studio is the Best Recording Studio in Ranchi, Either you need Music Producer, Recording Studio Services or Jingles and Advetisments.",
 };
 
 

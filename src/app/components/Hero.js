@@ -7,7 +7,7 @@ function Hero() {
         <section className="relative bg-transparent"> 
             <div className="relative z-10 px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-56">
                 
-                <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-brand-white md:text-5xl lg:text-6xl">Want Recording, Music Production and Audio related Services in Ranchi?</h1>
+                <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-brand-white md:text-5xl lg:text-6xl">Professional Recording Studio in Ranchi: Expert Music Producer for Mixing, Mastering & Audio Editing.</h1>
                 
                 {/* --- THIS IS THE FIX --- */}
                 {/* Changed from dark:text-gray-200 to dark:text-gray-100 */}
