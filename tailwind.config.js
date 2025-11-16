@@ -62,7 +62,7 @@ module.exports = {
       // 1. (FIX) Clean up the fontFamily
       fontFamily: {
         sans: ["var(--font-inter)"], // Only Inter is needed
-        mono: ["var(--font-geist-mono)"],
+        mono: ["var(--font-geist-mono)"], // Kept this just in case
       },
       keyframes: {
         "accordion-down": {
