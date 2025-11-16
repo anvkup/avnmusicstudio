@@ -1,11 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ["class"],
+  darkMode: ["class"], 
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+	],
   theme: {
     container: {
       center: true,
@@ -19,11 +19,7 @@ module.exports = {
         'brand-deep-space': '#0C2B4E',
         'brand-midnight': '#1A3D64',
         'brand-teal': '#1D546F',
-        // --- THIS IS THE FIX ---
-        // Changed from '#F4F4F4' to pure white for more "pop"
-        'brand-white': '#FFFFFF',
-
-        // Shadcn UI colors (leave these)
+        'brand-white': '#FFFFFF', 
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -63,11 +59,10 @@ module.exports = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      // --- THIS IS THE FONT FIX ---
-      // We're telling Tailwind to use the new '--font-inter' variable
+      // 1. (FIX) Clean up the fontFamily
       fontFamily: {
-        sans: ["var(--font-inter)"], // Changed from Geist
-        mono: ["var(--font-geist-mono)"], // Kept Geist Mono for any code
+        sans: ["var(--font-inter)"], // Only Inter is needed
+        mono: ["var(--font-geist-mono)"],
       },
       keyframes: {
         "accordion-down": {
@@ -86,5 +81,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-  plugins: [require("@tailwindcss/typography"),]
 }

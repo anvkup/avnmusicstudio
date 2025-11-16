@@ -1,10 +1,11 @@
-// src/app/components/PageTransitionWrapper.js
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
+// This component wraps your page content
 export default function PageTransitionWrapper({ children }) {
+  // We need the pathname here to tell AnimatePresence when the page changes
   const pathname = usePathname();
 
   const fadeVariants = {
@@ -16,7 +17,7 @@ export default function PageTransitionWrapper({ children }) {
   return (
     <AnimatePresence mode="wait" initial={false}>
       <motion.main
-        key={pathname}
+        key={pathname} // The 'key' is what triggers the exit/enter animation
         variants={fadeVariants}
         initial="initial"
         animate="animate"
