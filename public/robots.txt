@@ -1,6 +1,5 @@
 User-Agent: *
 Allow: /
-Disallow: /private/
 
 # UPDATE THIS LINE:
 Sitemap: https://www.avnmusic.shop/sitemap.xml
