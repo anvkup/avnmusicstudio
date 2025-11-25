@@ -1,9 +1,0 @@
-# /public/robots.txt
-
-User-agent: *
-Allow: /
-# Disallow: /admin # Example: Disallow private/admin pages
-
-# --- CRITICAL FOR GOOGLE ---
-# This line tells Google where your Sitemap is located
-Sitemap: https://www.avnmusic.shop/sitemap.xml
