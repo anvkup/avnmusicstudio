@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
-import { SpeedInsights } from "@vercel/speed-insights/next"; 
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { defaultMetadata, generateOrganizationSchema } from '@/lib/metadata';
 
 import Navbar from "./components/Navbar";
@@ -26,18 +26,20 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4191564938030741"
+          crossorigin="anonymous"></script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
       <body className={`${inter.variable} bg-white text-gray-900`}>
-        
+
         <SpeedInsights />
 
         <div className="relative z-10 bg-white">
           <Navbar />
-          
+
           {/* Wrap children in the page transition wrapper */}
           <PageTransitionWrapper>
             {children}
@@ -47,7 +49,7 @@ export default function RootLayout({ children }) {
         </div>
 
         {/* --- SCRIPTS --- */}
-       
+
         <Script id="google-analytics-config" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
@@ -56,7 +58,7 @@ export default function RootLayout({ children }) {
             gtag('config', 'AW-17202428540');
           `}
         </Script>
-        
+
       </body>
     </html>
   );
