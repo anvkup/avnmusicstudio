@@ -24,6 +24,7 @@ import { Menu, Facebook, Instagram, Linkedin, ChevronDown } from 'lucide-react';
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
+  { href: "/portfolio", label: "Portfolio" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
 ];

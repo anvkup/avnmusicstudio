@@ -31,6 +31,9 @@ function Footer() {
                                     <Link href="/about" className="hover:text-white hover:underline">About</Link>
                                 </li>
                                 <li className="mb-4">
+                                    <Link href="/portfolio" className="hover:text-white hover:underline">Portfolio</Link>
+                                </li>
+                                <li className="mb-4">
                                     <Link href="/services" className="hover:text-white hover:underline">Services</Link>
                                 </li>
                                 {/* --- ADDED BLOG LINK --- */}
