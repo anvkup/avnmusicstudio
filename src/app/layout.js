@@ -7,8 +7,7 @@ import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { defaultMetadata, generateOrganizationSchema } from '@/lib/metadata';
 
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import BrandShell from "./components/BrandShell";
 import PageTransitionWrapper from "./components/PageTransitionWrapper";
 
 const inter = Inter({
@@ -38,14 +37,11 @@ export default function RootLayout({ children }) {
         <SpeedInsights />
 
         <div className="relative z-10 bg-white">
-          <Navbar />
-
-          {/* Wrap children in the page transition wrapper */}
-          <PageTransitionWrapper>
-            {children}
-          </PageTransitionWrapper>
-
-          <Footer />
+          <BrandShell>
+            <PageTransitionWrapper>
+              {children}
+            </PageTransitionWrapper>
+          </BrandShell>
         </div>
 
         {/* --- SCRIPTS --- */}

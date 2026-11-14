@@ -20,21 +20,22 @@ import { cn } from "@/lib/utils";
 // --- Icons ---
 import { Menu, Facebook, Instagram, Linkedin, ChevronDown } from 'lucide-react'; 
 
-// --- Navigation Links (Excludes Services) ---
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
+  { href: "/studio", label: "Studio" },
+  { href: "/beats", label: "Beats" },
   { href: "/portfolio", label: "Portfolio" },
-  { href: "/blog", label: "Blog" },
+  { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 
-// --- Service Links (For Dropdown) ---
 const serviceLinks = [
+    { href: "/studio/services", label: "Studio Services" },
     { href: "/services/production", label: "Music Production" },
     { href: "/services/mixing", label: "Mixing & Mastering" },
     { href: "/services/recording", label: "Recording & Dubbing" },
     { href: "/services/jingles", label: "Commercial Audio" },
+    { href: "/beats/licenses", label: "Beat Licensing" },
 ];
 
 
@@ -50,7 +51,7 @@ function Navbar() {
     // 4. (FIX) The 'cn' logic now works perfectly
     <nav 
       className={cn(
-        "top-0 w-full relative z-50 bg-blue-600 dark:bg-blue-600 backdrop-blur-sm border-b border-blue-700",
+        "top-0 w-full relative z-50 bg-[#0a0a0a] border-b border-white/10 backdrop-blur-sm",
         isSticky && "sticky" 
       )}
     >
@@ -62,18 +63,24 @@ function Navbar() {
         <div className="hidden md:flex items-center space-x-4">
           
           {/* Main Nav Links */}
-          {navLinks.map((link) => (
-            <Button 
-              key={link.href} 
-              variant="link" 
-              asChild
-              className="opacity-80 hover:opacity-100 transition-opacity duration-200"
-            >
-              <Link href={link.href} className="text-white dark:text-white text-sm font-medium">
-                {link.label}
-              </Link>
-            </Button>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href || pathname.startsWith(`${link.href}/`);
+            return (
+              <Button 
+                key={link.href} 
+                variant="link" 
+                asChild
+                className={cn(
+                  "transition-opacity duration-200",
+                  isActive ? "text-red-300 opacity-100" : "text-white/80 hover:text-white opacity-80"
+                )}
+              >
+                <Link href={link.href} className="text-sm font-medium">
+                  {link.label}
+                </Link>
+              </Button>
+            );
+          })}
           
           {/* --- CUSTOM SERVICES DROPDOWN --- */}
           <div className="relative group">

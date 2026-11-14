@@ -6,7 +6,7 @@ import Logo from './Logo'; // Use the Logo component
 
 function Footer() {
     return (
-        <footer className="relative z-40 bg-blue-600 dark:bg-blue-600 border-t border-blue-700">
+        <footer className="relative z-40 border-t border-white/10 bg-[#0a0a0a] text-white">
             <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
                 <div className="md:flex md:justify-between">
                     
@@ -31,17 +31,22 @@ function Footer() {
                                     <Link href="/about" className="hover:text-white hover:underline">About</Link>
                                 </li>
                                 <li className="mb-4">
-                                    <Link href="/portfolio" className="hover:text-white hover:underline">Portfolio</Link>
+                                    <Link href="/studio" className="hover:text-red-300 hover:underline">Studio</Link>
                                 </li>
                                 <li className="mb-4">
-                                    <Link href="/services" className="hover:text-white hover:underline">Services</Link>
-                                </li>
-                                {/* --- ADDED BLOG LINK --- */}
-                                <li className="mb-4">
-                                    <Link href="/blog" className="hover:text-white hover:underline">Blog</Link>
+                                    <Link href="/beats" className="hover:text-red-300 hover:underline">Beats</Link>
                                 </li>
                                 <li className="mb-4">
-                                    <Link href="/contact" className="hover:text-white hover:underline">Contact</Link>
+                                    <Link href="/portfolio" className="hover:text-red-300 hover:underline">Portfolio</Link>
+                                </li>
+                                <li className="mb-4">
+                                    <Link href="/services" className="hover:text-red-300 hover:underline">Services</Link>
+                                </li>
+                                <li className="mb-4">
+                                    <Link href="/blog" className="hover:text-red-300 hover:underline">Blog</Link>
+                                </li>
+                                <li className="mb-4">
+                                    <Link href="/contact" className="hover:text-red-300 hover:underline">Contact</Link>
                                 </li>
                             </ul>
                         </div>

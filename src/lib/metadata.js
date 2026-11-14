@@ -1,14 +1,14 @@
 const SITE_CONFIG = {
-  name: 'AVN Music Studio',
-  description: 'Professional music production, recording, and mixing studio',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://avnmusicstudio.com',
-  email: 'info@avnmusicstudio.com',
-  phone: '+91 XXXXXXXXXX',
+  name: 'AVN Music',
+  description: 'AVN Music connects music production services, original beats, and a producer portfolio in one premium creative platform.',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://avnmusic.shop',
+  email: 'info@avnmusic.shop',
+  phone: '+91 90607 93927',
   socialLinks: {
-    instagram: 'https://instagram.com/avnmusicstudio',
-    facebook: 'https://facebook.com/avnmusicstudio',
-    youtube: 'https://youtube.com/avnmusicstudio',
-    twitter: 'https://twitter.com/avnmusicstudio',
+    instagram: 'https://www.instagram.com/avn.music1/',
+    facebook: 'https://www.facebook.com/profile.php?id=61566925568567',
+    linkedin: 'https://www.linkedin.com/company/avn-productions1',
+    whatsapp: 'https://wa.link/vcj8tv',
   },
 };
 
